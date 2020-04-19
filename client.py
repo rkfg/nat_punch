@@ -56,7 +56,7 @@ async def main():
     args = parser.parse_args()
     addr = addr_from_string(args.address)
 
-    loop = asyncio.get_running_loop()
+    loop = asyncio.get_event_loop()
 
     transport, _ = await loop.create_datagram_endpoint(
         lambda: PunchClientProtocol(),
@@ -73,4 +73,5 @@ async def main():
         transport.close()
 
 
-asyncio.run(main())
+loop = asyncio.get_event_loop()
+loop.run_until_complete(main())

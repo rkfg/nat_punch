@@ -69,7 +69,7 @@ async def main():
     parser.add_argument('-p', '--port', type=int, default=37419, help='Port to listen for datagrams at')
     args = parser.parse_args()
 
-    loop = asyncio.get_running_loop()
+    loop = asyncio.get_event_loop()
 
     transport, _ = await loop.create_datagram_endpoint(
         lambda: PunchServerProtocol(),
@@ -82,4 +82,5 @@ async def main():
         transport.close()
 
 
-asyncio.run(main())
+loop = asyncio.get_event_loop()
+loop.run_until_complete(main())
